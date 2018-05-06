@@ -60,6 +60,7 @@ input[type=checkbox] {
 
 .message {
   margin: 4px;
+  border-radius: 10px;
   min-height: 24px;
   background-color: #1D1D1D;
   color: #FFFFFF;
