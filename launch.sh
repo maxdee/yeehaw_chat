@@ -29,7 +29,6 @@ launch_server() {
     if hash http-server 2>/dev/null
     then
         http-server & launch_page
-        echo "Opening page..."
     else
         echo >&2 "npm package http-server is required to serve the page."
         echo "use 'npm i -g http-server to install, then run 'http-server' from this directory. :}"
