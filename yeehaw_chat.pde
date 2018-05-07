@@ -46,14 +46,13 @@ void loadFile(String _fn){
                 messages.add(_buf);
             }
             String[] _ha = split(_raw[i], " ");
-            _buf = "";
+            _buf = "{ ";
             if(_ha.length > 1){
-                _buf+= _ha[1];
+                _buf += "\"username\": \"" + _ha[1] + "\", ";
             }
-            _buf +=" : ";
         }
         else {
-            _buf += _raw[i];
+            _buf += "\"content\": \"" + _raw[i] + "\" }";
         }
     }
     if(!_buf.equals("")){

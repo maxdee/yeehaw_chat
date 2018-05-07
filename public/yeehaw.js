@@ -66,7 +66,7 @@ function makeSocket(_adr) {
         _layerDiv.innerHTML = evt.data;
         _chat.appendChild(_layerDiv);
         _chat.scrollTop = _chat.scrollHeight;
-        console.log(evt.data);
+        console.log('message =>', evt.data);
     }
     return socket;
 }
