@@ -67,17 +67,30 @@ input[type=checkbox] {
   font-size: 12pt;
   padding: 20px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: left;
   overflow: auto;
   line-height: 1.5em;
 }
 
-#left {
+.username h4 {
+  margin: 0 0 10px 0;
+}
+
+.content {
+  margin: 0px;
+}
+
+.content p {
+  margin: 0px;
+}
+
+.left {
   background-color: rgb(225, 225, 225);
   color: #000000;
 }
 
-#right {
+.right {
   background-color: rgb(255, 255, 255);
   color : #000000;
 }

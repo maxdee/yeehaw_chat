@@ -55,17 +55,34 @@ function makeSocket(_adr) {
     }
     socket.onmessage = function (evt) {
         // parseInfo(evt.data);
+        var _messageJSON = JSON.parse(evt.data);
         var _chat = document.getElementById("chat");
+        var _messageDiv;
+        var _layerType;
+        var _usernameDiv;
+        var _contentDiv;
 
-        var _layerDiv;
-        _layerDiv = document.createElement("div");
+        _usernameDiv = document.createElement("div");
+        _usernameDiv.className = "username";
+        _usernameDiv.innerHTML = "<h4>" + _messageJSON.username + "</h4>";
 
-        _layerDiv.id = ((messageIncrement++)%2 === 1) ? "left" : "right" ;
-        _layerDiv.className = "message";
+        _contentDiv = document.createElement("div");
+        _contentDiv.className = "content";
+        _contentDiv.innerHTML = "<p>" + _messageJSON.content + "</p>";
 
-        _layerDiv.innerHTML = evt.data;
-        _chat.appendChild(_layerDiv);
+        _messageDiv = document.createElement("div");
+        // XXX (chris): HTML element ids should be unique to a single element
+        // _messageDiv.id = ( (messageIncrement++) %2 === 1 ) ? "left" : "right" ;
+        _layerType = ( (messageIncrement++) %2 === 1 ) ? "left" : "right";
+        _messageDiv.classList.add("message");
+        _messageDiv.classList.add(_layerType);
+        _messageDiv.appendChild(_usernameDiv);
+        _messageDiv.appendChild(_contentDiv);
+
+        _chat.appendChild(_messageDiv);
+        // TODO: fix this so that the user can scroll freely without being sent back to bottom
         _chat.scrollTop = _chat.scrollHeight;
+
         console.log('message =>', evt.data);
     }
     return socket;
