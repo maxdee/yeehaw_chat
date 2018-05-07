@@ -6,6 +6,17 @@ window.onload = function() {
     var sendCMD, cmdPrompt, flData, selectedTemplate, selectedLayer, selectedLayerType, availableFiles;
     var messageIncrement = 0;
     var chatDiv = document.getElementById("chat");
+    var autoScroll = true;
+
+    // Check if chat div is being manually scrolled and set autoscroll accordingly
+    // TODO: add button to jump to newest messages if manually scrolling
+    chatDiv.onscroll = function(event) {
+        if ( (chatDiv.scrollTop + chatDiv.offsetHeight) >= chatDiv.scrollHeight - 50 ) {
+            autoScroll = true;
+        } else {
+            autoScroll = false;
+        }
+    }
 
     /*
     * /////////////////////////////////////////////////////////////
@@ -17,10 +28,6 @@ window.onload = function() {
     setInterval(function() {
         actualySendCMD('ping');
     }, 2000);
-
-    window.onload = function () {
-        // if(typeof InstallTrigger == 'undefined') setInfo("browser not supported, plz use firefox or ?");
-    }
 
 
     /*
@@ -83,6 +90,11 @@ window.onload = function() {
             chatDiv.appendChild(_messageDiv);
             // TODO: fix this so that the user can scroll freely without being sent back to bottom
             // chatDiv.scrollTop = chatDiv.scrollHeight;
+
+            // Auto scrolling
+            if ( autoScroll ) {
+                chatDiv.scrollTop = chatDiv.scrollHeight;
+            }
 
             // console.log('message =>', evt.data);
         }
