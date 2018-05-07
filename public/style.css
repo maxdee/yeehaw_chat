@@ -46,9 +46,20 @@ input[type=checkbox] {
 
 .chat {
   flex: 1 1 auto;
-  overflow-y: scroll;
   width:50%;
   height:100%;
+}
+
+.messages {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.jump-to-bottom {
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 .video {

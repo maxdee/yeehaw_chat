@@ -5,7 +5,8 @@ window.onload = function() {
     // globals
     var sendCMD, cmdPrompt, flData, selectedTemplate, selectedLayer, selectedLayerType, availableFiles;
     var messageIncrement = 0;
-    var chatDiv = document.getElementById("chat");
+    var chatDiv = document.getElementById("messages");
+    var jumpButton = document.getElementById("jump");
     var autoScroll = true;
 
     // Check if chat div is being manually scrolled and set autoscroll accordingly
@@ -88,15 +89,11 @@ window.onload = function() {
             _messageDiv.appendChild(_contentDiv);
 
             chatDiv.appendChild(_messageDiv);
-            // TODO: fix this so that the user can scroll freely without being sent back to bottom
-            // chatDiv.scrollTop = chatDiv.scrollHeight;
 
             // Auto scrolling
             if ( autoScroll ) {
                 chatDiv.scrollTop = chatDiv.scrollHeight;
             }
-
-            // console.log('message =>', evt.data);
         }
         return socket;
     }
@@ -254,6 +251,10 @@ window.onload = function() {
         if(e.target.type == "range") {
             e.target.focus();
         }
+    });
+
+    jumpButton.addEventListener('click', function(event) {
+        chatDiv.scrollTop = chatDiv.scrollHeight;
     });
 
 }
