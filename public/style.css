@@ -46,7 +46,6 @@ input[type=checkbox] {
 
 .chat {
   flex: 1 1 auto;
-  background-color: #00D5F0;
   overflow-y: scroll;
   width:50%;
   height:100%;
@@ -54,6 +53,7 @@ input[type=checkbox] {
 
 .video {
   flex: 1 1 auto;
+  padding: 10px;
 }
 
 .widget {
@@ -61,24 +61,23 @@ input[type=checkbox] {
 }
 
 .message {
-  margin: 4px;
-  border-radius: 10px;
   min-height: 24px;
   background-color: #1D1D1D;
   color: #FFFFFF;
-  font-size: 10pt;
-  padding: 2px;
-  padding-left: 4px;
+  font-size: 12pt;
+  padding: 20px;
   display: flex;
   align-items: center;
   overflow: auto;
+  line-height: 1.5em;
 }
+
 #left {
-  background-color: #00CFEA;
-  color : #000000;
+  background-color: rgb(225, 225, 225);
+  color: #000000;
 }
 
 #right {
-  background-color: #ACFF72;
+  background-color: rgb(255, 255, 255);
   color : #000000;
 }
