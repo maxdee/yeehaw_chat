@@ -14,8 +14,10 @@ window.onload = function() {
     chatDiv.onscroll = function(event) {
         if ( (chatDiv.scrollTop + chatDiv.offsetHeight) >= chatDiv.scrollHeight - 50 ) {
             autoScroll = true;
+            jumpButton.style.display = 'none';
         } else {
             autoScroll = false;
+            jumpButton.style.display = 'block';
         }
     }
 
@@ -255,6 +257,7 @@ window.onload = function() {
 
     jumpButton.addEventListener('click', function(event) {
         chatDiv.scrollTop = chatDiv.scrollHeight;
+        jumpButton.style.display = 'none';
     });
 
 }
