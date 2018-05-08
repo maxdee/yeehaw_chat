@@ -5,21 +5,13 @@ window.onload = function() {
     // globals
     var sendCMD, cmdPrompt, flData, selectedTemplate, selectedLayer, selectedLayerType, availableFiles;
     var messageIncrement = 0;
-    var chatDiv = document.getElementById("messages");
-    var jumpButton = document.getElementById("jump");
+    // var chatDiv = document.getElementById("messages");
+    // var jumpButton = document.getElementById("jump");
     var autoScroll = true;
-    var DEFAULT_WEBSOCKET_ADDR = 'ws://192.168.0.5:8025/yeehaw';
+    var DEFAULT_WEBSOCKET_ADDR = 'ws://192.168.0.5:8026/control';
+
     // Check if chat div is being manually scrolled and set autoscroll accordingly
     // TODO: add button to jump to newest messages if manually scrolling
-    chatDiv.onscroll = function(event) {
-        if ( (chatDiv.scrollTop + chatDiv.offsetHeight) >= chatDiv.scrollHeight - 50 ) {
-            autoScroll = true;
-            jumpButton.style.display = 'none';
-        } else {
-            autoScroll = false;
-            jumpButton.style.display = 'block';
-        }
-    }
 
     /*
     * /////////////////////////////////////////////////////////////
@@ -29,7 +21,7 @@ window.onload = function() {
 
     // fetch the info at 200 ms intervals
     setInterval(function() {
-        actualySendCMD('ping');
+        actualySendCMD('control');
     }, 2000);
 
 
@@ -39,11 +31,11 @@ window.onload = function() {
     * /////////////////////////////////////////////////////////////
     */
 
-    function sendCMD(_cmd) {
-        actualySendCMD(_cmd);
-        // display it!
-        document.getElementById("logline").innerHTML = _cmd;
-    }
+    // function sendCMD(_cmd) {
+    //     actualySendCMD(_cmd);
+    //     // display it!
+    //     document.getElementById("logline").innerHTML = _cmd;
+    // }
 
     // make a function to send commands through a websocket
     actualySendCMD = (function () {
@@ -229,12 +221,12 @@ window.onload = function() {
         // if ((navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) e.preventDefault();
         // prevent default for tab key
         // if(e.keyCode == 9) e.preventDefault();
-        if (document.activeElement == document.getElementById("prompt")) cmdPrompt(e);
+        // if (document.activeElement == document.getElementById("prompt")) cmdPrompt(e);
         // else if (document.activeElement != document.getElementById("layerNameInput")) {
         //     blurAll();
         //     actualySendCMD('hid press '+kbdRules(e)+" "+e.key);
         // }
-
+        console.log(e.keyCode);
         //send keyPress to freeliner
     }, false);
 
@@ -254,9 +246,13 @@ window.onload = function() {
         }
     });
 
-    jumpButton.addEventListener('click', function(event) {
-        chatDiv.scrollTop = chatDiv.scrollHeight;
-        jumpButton.style.display = 'none';
-    });
+    var nextButton = document.getElementById("nextButton");
+    nextButton.onclick = function(){
+        actualySendCMD("next");
+    };
+    // jumpButton.addEventListener('click', function(event) {
+    //     chatDiv.scrollTop = chatDiv.scrollHeight;
+    //     jumpButton.style.display = 'none';
+    // });
 
 }
