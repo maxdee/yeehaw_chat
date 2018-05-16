@@ -221,9 +221,17 @@ window.onload = function() {
         //     blurAll();
         //     actualySendCMD('hid press '+kbdRules(e)+" "+e.key);
         // }
-        console.log(e.keyCode);
-        //send keyPress to freeliner
-        actualySendCMD("next");
+
+        console.log('keyCode =>', e.keyCode);
+
+        // Keycode mapping
+        const NEXT_MESSAGE_KEY = 32; // spaceba
+
+        // spacebar keypress
+        if (e.keyCode === NEXT_MESSAGE_KEY) {
+            // trigger next chat message
+            actualySendCMD("next");
+        }
     }, false);
 
     document.addEventListener("keyup", function(e) {
