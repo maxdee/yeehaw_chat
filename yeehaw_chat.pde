@@ -25,7 +25,7 @@ void setup(){
     oscP5 = new OscP5(this, 8000);
     myRemoteLocation = new NetAddress("127.0.0.1", 9000);
     server = new SimpleHTTPServer(this, HTTPSERVER_PORT);
-    server.serveAll("",sketchPath()+"/public");
+    server.serveAll("", sketchPath()+"/public");
     chatSocket = new WebsocketServer(this, WEBSOCKET_PORT,"/yeehaw");
     controlSocket = new WebsocketServer(this, WEBSOCKET_PORT+1,"/control");
 

@@ -3,9 +3,11 @@ open_page() {
     # (assumes Mac OS otherwise)
     if [ $(uname) == "Linux" ]
     then
-        xdg-open http://127.0.0.1:8080
+        xdg-open http://127.0.0.1:8000/index.html &
+        xdg-open http://127.0.0.1:8000/control.html &
     else
-        open http://127.0.0.1:8080
+        open http://127.0.0.1:8000/index.html &
+        open http://127.0.0.1:8000/control.html &
     fi
 }
 
