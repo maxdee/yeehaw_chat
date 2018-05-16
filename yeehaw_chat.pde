@@ -48,7 +48,7 @@ void keyPressed( ){
 
 
 void nextMessage() {
-    if(index < messages.size()) {
+    if(index < messages.size() - 1) {
         chatSocket.sendMessage(messages.get(index++));
         println(messages.get(index++));
     }
