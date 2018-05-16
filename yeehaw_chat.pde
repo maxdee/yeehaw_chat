@@ -21,34 +21,34 @@ ArrayList<String> messages;
 int increment = 0;
 int index = 0;
 void setup(){
-    size(200,200);
+    size(200, 200);
     oscP5 = new OscP5(this, 8000);
     myRemoteLocation = new NetAddress("127.0.0.1", 9000);
     server = new SimpleHTTPServer(this, HTTPSERVER_PORT);
     server.serveAll("",sketchPath()+"/public");
-    chatSocket = new WebsocketServer(this,WEBSOCKET_PORT,"/yeehaw");
-    controlSocket = new WebsocketServer(this,WEBSOCKET_PORT+1,"/control");
+    chatSocket = new WebsocketServer(this, WEBSOCKET_PORT,"/yeehaw");
+    controlSocket = new WebsocketServer(this, WEBSOCKET_PORT+1,"/control");
 
-    now=millis();
-    x=0;
-    y=0;
+    now = millis();
+    x = 0;
+    y = 0;
     loadFile("chat_file.txt");
 }
 
-void draw(){
+void draw() {
     background(0);
     ellipse(x,y,10,10);
 }
 
-void keyPressed(){
-    if(key == 32){
+void keyPressed( ){
+    if(key == 32) {
         nextMessage();
     }
 }
 
 
-void nextMessage(){
-    if(index < messages.size()){
+void nextMessage() {
+    if(index < messages.size()) {
         chatSocket.sendMessage(messages.get(index++));
     }
     index %= messages.size();
