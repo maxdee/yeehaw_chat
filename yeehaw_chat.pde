@@ -48,11 +48,12 @@ void keyPressed( ){
 
 
 void nextMessage() {
-    if(index < messages.size() - 1) {
-        chatSocket.sendMessage(messages.get(index++));
-        println(messages.get(index++));
+    if(index < messages.size()) {
+        chatSocket.sendMessage(messages.get(index));
+        println(messages.get(index));
+        index++;
     }
-    index %= messages.size();
+    // index %= messages.size();
 }
 
 void updateViewers(int _numViewers) {
