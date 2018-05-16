@@ -56,7 +56,7 @@ void nextMessage() {
         println(messages.get(index));
         index++;
     }
-    // index %= messages.size();
+    index %= messages.size();
 }
 
 void updateViewers(int _numViewers) {
@@ -118,7 +118,8 @@ void webSocketServerEvent(String msg){
     }
 
     if (_messageType.equals("tip")) {
-        addToTipJar();
+        String _tipAmount = _message[1];
+        addToTipJar(_tipAmount);
     }
 
     x=random(width);
@@ -155,7 +156,14 @@ void oscEvent(OscMessage theOscMessage) {
 }
 
 
-void addToTipJar() {
-    println("tip");
+void addToTipJar(String _tipAmount) {
+    // Construct tip message JSON
+    String _tipObject = "{ "
+        + "\"type\": \"tip\", "
+        + "\"amount\": \"" + _tipAmount + "\""
+    + " }";
+    println(_tipObject);
+
     tipJarSound.play();
+    chatSocket.sendMessage(_tipObject);
 }
