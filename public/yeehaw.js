@@ -8,7 +8,7 @@ window.onload = function() {
     var chatDiv = document.getElementById("messages");
     var jumpButton = document.getElementById("jump");
     var autoScroll = true;
-    var DEFAULT_WEBSOCKET_ADDR = 'ws://192.168.0.5:8025/yeehaw';
+    var DEFAULT_WEBSOCKET_ADDR = 'ws://127.0.0.1:8025/yeehaw';
     // Check if chat div is being manually scrolled and set autoscroll accordingly
     // TODO: add button to jump to newest messages if manually scrolling
     chatDiv.onscroll = function(event) {
@@ -54,7 +54,6 @@ window.onload = function() {
         socket = makeSocket(DEFAULT_WEBSOCKET_ADDR);
         return function (_cmd) {
             if(socket.readyState) socket.send(_cmd);
-            else setInfo("start freeliner and refresh to connect");
         }
     })();
 
@@ -131,10 +130,6 @@ window.onload = function() {
             }
         };
         xobj.send(null);
-    }
-
-    function setInfo(_info) {
-        document.getElementById("infoline").innerHTML = _info.replace('info', '');
     }
 
     function popupCallbacks() {
