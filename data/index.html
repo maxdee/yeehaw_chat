@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title> yeehaw! chat </title>
+  <!-- css -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script language="javascript" type="text/javascript" src="yeehaw.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <!-- <div class="widget" title="comment here">
+      say:
+      <input type="text" name="cmd" id="prompt">
+    </div> -->
+    <div class="content-left">
+      <div class="video" id="video">
+        <video autoplay="true" id="videoElement"></video>
+        <h3 id="viewers">0 viewers</3>
+      </div>
+    </div>
+    <script>
+        // TODO: move this script into yeehaw.js
+        var video = document.querySelector("#videoElement");
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+        if (navigator.getUserMedia) {
+            navigator.getUserMedia({video: true}, handleVideo, videoError);
+        }
+        function handleVideo(stream) {
+            video.src = window.URL.createObjectURL(stream);
+        }
+        function videoError(e) {
+        // do something
+        }
+    </script>
+    <div class="content-right">
+      <div class="chat" id="chat">
+        <div class="messages" id="messages"></div>
+        <div class="jump-to-bottom" id="jump">Jump to Newest Messages</div>
+      </div>
+      <div class="tips">
+        <h2>Tips: $</h2><h2 id="tip-amount">0</h2>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
