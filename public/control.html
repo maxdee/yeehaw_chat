@@ -17,7 +17,20 @@
     <!-- TODO: fix this input and sizing -->
     <intut type="text" name="chatBox" id="chatBox"/>
     <button type="button" name="next" id="nextButton"> next message (spacebar) </button>
-    <button type="button" name="viewers" id="viewersButton"> add a viewer (V) </button>
+    <div id="viewers-update">
+
+      <h4>Add Viewers:</h4>
+      <button type="button" class="viewers-button add" value="1" name="add-viewers-1" id="addViewers1"> +1 (Z) </button>
+      <button type="button" class="viewers-button add" value="2" name="add-viewers-2" id="addViewers2"> +2 (X) </button>
+      <button type="button" class="viewers-button add" value="5" name="add-viewers-5" id="addViewers5"> +5 (C) </button>
+      <button type="button" class="viewers-button add" value="10" name="add-viewers-10" id="addViewers10"> +10 (V) </button>
+
+      <h4>Remove Viewers (Hold Shift):</h4>
+      <button type="button" class="viewers-button remove" value="-1" name="remove-viewers-1" id="removeViewers1"> -1 (Shift + Z) </button>
+      <button type="button" class="viewers-button remove" value="-2" name="remove-viewers-2" id="removeViewers2"> -2 (Shift + X) </button>
+      <button type="button" class="viewers-button remove" value="-5" name="remove-viewers-5" id="removeViewers5"> -5 (Shift + C) </button>
+      <button type="button" class="viewers-button remove" value="-10" name="remove-viewers-10" id="removeViewers10"> -10 (Shift + V) </button>
+    </div>
   </div>
 </body>
 

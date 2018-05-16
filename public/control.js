@@ -210,40 +210,51 @@ window.onload = function() {
         else return _event.keyCode;
     }
 
+    var shiftKeyPressed = false;
+    // Keycode mapping
+    const SHIFT_KEY = 16;
+    const NEXT_MESSAGE_KEY = 32; // spacebar
+    const VIEWERS_1_KEY = 90;
+    const VIEWERS_2_KEY = 88;
+    const VIEWERS_5_KEY = 67;
+    const VIEWERS_10_KEY = 86;
+
     // prevent keyboard default behaviors, for ctrl-_ tab
     document.addEventListener("keydown", function(e) {
-        // catch ctrlKey
-        // if ((navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) e.preventDefault();
-        // prevent default for tab key
-        // if(e.keyCode == 9) e.preventDefault();
-        // if (document.activeElement == document.getElementById("prompt")) cmdPrompt(e);
-        // else if (document.activeElement != document.getElementById("layerNameInput")) {
-        //     blurAll();
-        //     actualySendCMD('hid press '+kbdRules(e)+" "+e.key);
-        // }
 
         console.log('keyCode =>', e.keyCode);
 
-        // Keycode mapping
-        const NEXT_MESSAGE_KEY = 32; // spaceba
-
         // Key press actions
         switch(e.keyCode) {
+            case SHIFT_KEY:
+                // Activate shift state
+                shiftKeyPressed = true;
+                break;
             case NEXT_MESSAGE_KEY:
                 // trigger next chat message
                 actualySendCMD("next");
+                break;
+            case VIEWERS_1_KEY:
+                actualySendCMD(shiftKeyPressed ? 'viewers -1' : 'viewers 1');
+                break;
+            case VIEWERS_2_KEY:
+                actualySendCMD(shiftKeyPressed ? 'viewers -2' : 'viewers 2');
+                break;
+            case VIEWERS_5_KEY:
+                actualySendCMD(shiftKeyPressed ? 'viewers -5' : 'viewers 5');
+                break;
+            case VIEWERS_10_KEY:
+                actualySendCMD(shiftKeyPressed ? 'viewers -10' : 'viewers 10');
                 break;
         }
 
     }, false);
 
     document.addEventListener("keyup", function(e) {
-        // catch ctrlKey
-        // if ((navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) e.preventDefault();
-        // prevent default for tab key
-        // if(e.keyCode == 9) e.preventDefault();
-        //send keyRelease to freeliner
-        // actualySendCMD('hid release '+kbdRules(e)+" "+e.key);
+        // Remove shift state
+        if (e.keyCode === SHIFT_KEY) {
+            shiftKeyPressed = false;
+        }
     }, false);
 
     // autofocus on ranges
@@ -258,9 +269,27 @@ window.onload = function() {
         actualySendCMD("next");
     };
     
-    var viewersButton = document.getElementById('viewersButton');
-    viewersButton.onclick = function() {
-        actualySendCMD("viewers 1");
-    };
+    // var viewersButton = document.getElementById('viewersButton');
+    // viewersButton.onclick = function() {
+    //     actualySendCMD("viewers 1");
+    // };
+
+    var viewersButtons = document.getElementsByClassName('viewers-button');
+    // Add viewers button events
+    for (var i = 0; i < viewersButtons.length; i++) {
+        var _button = viewersButtons[i];
+
+        _button.addEventListener('click', function(event) {
+            var _value = event.target.value;
+            console.log('viewers ' + _value);
+            actualySendCMD('viewers ' + _value);
+        });
+    }
+
+    // Util to check if HTML element has class
+    function hasClass(element, className) {
+        return (' ' + element.className + ' ').indexOf(' ' + className + ' ') > -1;
+    }
+    
 
 }

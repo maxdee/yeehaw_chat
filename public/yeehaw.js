@@ -115,7 +115,7 @@ window.onload = function() {
         var _viewersSuffix; 
 
         // update viewer tally
-        numViewers += _num;
+        numViewers = (numViewers + _num > 0) ? numViewers + _num : 0;
         _viewersSuffix = ( numViewers === 1 ) ? ' viewer' : ' viewers';
         _viewersHeading.innerHTML = numViewers + _viewersSuffix;
     }
