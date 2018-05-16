@@ -2,6 +2,7 @@ import http.*;
 import websockets.*;
 import oscP5.*;
 import netP5.*;
+import processing.sound.*;
 
 OscP5 oscP5;
 NetAddress myRemoteLocation;
@@ -17,6 +18,7 @@ int WEBSOCKET_PORT = 8025;
 int HTTPSERVER_PORT = 8000;
 ArrayList<String> messages;
 
+SoundFile tipJarSound;
 
 int increment = 0;
 int index = 0;
@@ -25,9 +27,10 @@ void setup(){
     oscP5 = new OscP5(this, 8000);
     myRemoteLocation = new NetAddress("127.0.0.1", 9000);
     server = new SimpleHTTPServer(this, HTTPSERVER_PORT);
-    server.serveAll("", sketchPath()+"/public");
+    server.serveAll("", sketchPath()+"/data");
     chatSocket = new WebsocketServer(this, WEBSOCKET_PORT,"/yeehaw");
     controlSocket = new WebsocketServer(this, WEBSOCKET_PORT+1,"/control");
+    tipJarSound = new SoundFile(this, "assets/sounds/spitoon.wav");
 
     now = millis();
     x = 0;
@@ -101,15 +104,21 @@ void webSocketServerEvent(String msg){
 
     // split message args
     String[] _message = split(msg, " ");
+    String _messageType = _message[0];
 
-    if (_message[0].equals("next")) {
+    // Trigger next message
+    if (_messageType.equals("next")) {
         nextMessage();
     }
 
-    if (_message[0].equals("viewers")) {
+    // Add or remove viewers
+    if (_messageType.equals("viewers")) {
         int _numViewers = int(_message[1]);
-        println("updating viewers by " + _numViewers);
         updateViewers(_numViewers);
+    }
+
+    if (_messageType.equals("tip")) {
+        addToTipJar();
     }
 
     x=random(width);
@@ -143,4 +152,10 @@ void oscEvent(OscMessage theOscMessage) {
     else {
         println(theOscMessage);
     }
+}
+
+
+void addToTipJar() {
+    println("tip");
+    tipJarSound.play();
 }
