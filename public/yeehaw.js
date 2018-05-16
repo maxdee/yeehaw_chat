@@ -5,8 +5,10 @@ window.onload = function() {
     // globals
     var sendCMD, cmdPrompt, flData, selectedTemplate, selectedLayer, selectedLayerType, availableFiles;
     var messageIncrement = 0;
-    var chatDiv = document.getElementById("messages");
-    var jumpButton = document.getElementById("jump");
+    var chatDiv = document.getElementById('messages');
+    var videoDiv = document.getElementById('video');
+    var numViewers = 0;
+    var jumpButton = document.getElementById('jump');
     var autoScroll = true;
     var DEFAULT_WEBSOCKET_ADDR = 'ws://127.0.0.1:8025/yeehaw';
     // Check if chat div is being manually scrolled and set autoscroll accordingly
@@ -28,9 +30,9 @@ window.onload = function() {
     */
 
     // fetch the info at 200 ms intervals
-    setInterval(function() {
-        actualySendCMD('ping');
-    }, 2000);
+    // setInterval(function() {
+    //     actualySendCMD('ping');
+    // }, 2000);
 
 
     /*
@@ -64,39 +66,60 @@ window.onload = function() {
             populateGUI();
         }
         socket.onmessage = function (evt) {
-            // parseInfo(evt.data);
-            var _messageJSON = JSON.parse(evt.data);
-            var _messageDiv;
-            var _layerType;
-            var _usernameDiv;
-            var _contentDiv;
+            var _messageData = JSON.parse(evt.data);
+            console.log(_messageData);
 
-            _usernameDiv = document.createElement("div");
-            _usernameDiv.className = "username";
-            _usernameDiv.innerHTML = "<h4>" + _messageJSON.username + "</h4>";
-
-            _contentDiv = document.createElement("div");
-            _contentDiv.className = "content";
-            _contentDiv.innerHTML = "<p>" + _messageJSON.content + "</p>";
-
-            _messageDiv = document.createElement("div");
-            // XXX (chris): HTML element ids should be unique to a single element
-            // _messageDiv.id = ( (messageIncrement++) %2 === 1 ) ? "left" : "right" ;
-            _layerType = ( (messageIncrement++) %2 === 1 ) ? "left" : "right";
-            _messageDiv.classList.add("message");
-            _messageDiv.classList.add(_layerType);
-            _messageDiv.appendChild(_usernameDiv);
-            _messageDiv.appendChild(_contentDiv);
-
-            chatDiv.appendChild(_messageDiv);
-
-            // Auto scrolling
-            if ( autoScroll ) {
-                chatDiv.scrollTop = chatDiv.scrollHeight;
+            // Handle chat messages
+            switch(_messageData.type) {
+                case 'chat':
+                    updateChat(_messageData);
+                    break;
+                case 'viewers':
+                    var _numViewers = parseInt(_messageData.viewers);
+                    updateViewers(_numViewers);
+                    break;
+                default:
+                    console.log('Error: could not determine message type');
             }
+
         }
         return socket;
     }
+
+
+    function updateChat(_messageObject) {
+        var _usernameDiv = document.createElement("div");
+        var _contentDiv = document.createElement("div");
+        var _messageDiv = document.createElement("div");
+        var _layerType = ( (messageIncrement++) %2 === 1 ) ? "left" : "right";
+
+        _usernameDiv.className = "username";
+        _usernameDiv.innerHTML = "<h4>" + _messageObject.username + "</h4>";
+        _contentDiv.className = "content";
+        _contentDiv.innerHTML = "<p>" + _messageObject.message + "</p>";
+        _messageDiv.classList.add("message");
+        _messageDiv.classList.add(_layerType);
+        _messageDiv.appendChild(_usernameDiv);
+        _messageDiv.appendChild(_contentDiv);
+        chatDiv.appendChild(_messageDiv);
+
+        // Auto scrolling
+        if ( autoScroll ) {
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        }
+    }
+
+
+    function updateViewers(_num) {
+        var _viewersHeading = document.getElementById('viewers');
+        var _viewersSuffix; 
+
+        // update viewer tally
+        numViewers += _num;
+        _viewersSuffix = ( numViewers === 1 ) ? ' viewer' : ' viewers';
+        _viewersHeading.innerHTML = numViewers + _viewersSuffix;
+    }
+
 
     // called when the socket opens, this way we get fresh info from freeliner
     function populateGUI() {
@@ -217,6 +240,7 @@ window.onload = function() {
         else if(_event.keyCode == 173) return 45;
         else return _event.keyCode;
     }
+
 
     // prevent keyboard default behaviors, for ctrl-_ tab
     document.addEventListener("keydown", function(e) {

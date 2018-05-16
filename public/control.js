@@ -227,11 +227,14 @@ window.onload = function() {
         // Keycode mapping
         const NEXT_MESSAGE_KEY = 32; // spaceba
 
-        // spacebar keypress
-        if (e.keyCode === NEXT_MESSAGE_KEY) {
-            // trigger next chat message
-            actualySendCMD("next");
+        // Key press actions
+        switch(e.keyCode) {
+            case NEXT_MESSAGE_KEY:
+                // trigger next chat message
+                actualySendCMD("next");
+                break;
         }
+
     }, false);
 
     document.addEventListener("keyup", function(e) {
@@ -251,12 +254,13 @@ window.onload = function() {
     });
 
     var nextButton = document.getElementById("nextButton");
-    nextButton.onclick = function(){
+    nextButton.onclick = function() {
         actualySendCMD("next");
     };
-    // jumpButton.addEventListener('click', function(event) {
-    //     chatDiv.scrollTop = chatDiv.scrollHeight;
-    //     jumpButton.style.display = 'none';
-    // });
+    
+    var viewersButton = document.getElementById('viewersButton');
+    viewersButton.onclick = function() {
+        actualySendCMD("viewers 1");
+    };
 
 }

@@ -14,7 +14,10 @@
       say:
       <input type="text" name="cmd" id="prompt">
     </div> -->
-    <div class="video"> <video autoplay="true" id="videoElement"></div>
+    <div class="video" id="video">
+      <video autoplay="true" id="videoElement"></video>
+      <h3 id="viewers">0 viewers</3>
+    </div>
     <script>
         // TODO: move this script into yeehaw.js
         var video = document.querySelector("#videoElement");

@@ -50,8 +50,19 @@ void keyPressed( ){
 void nextMessage() {
     if(index < messages.size()) {
         chatSocket.sendMessage(messages.get(index++));
+        println(messages.get(index++));
     }
     index %= messages.size();
+}
+
+void updateViewers(int _numViewers) {
+    // Construct viewers message JSON
+    String _viewersObject = "{ "
+        + "\"type\": \"viewers\", "
+        + "\"viewers\": \"" + _numViewers + "\""
+    + " }";
+    println(_viewersObject);
+    chatSocket.sendMessage(_viewersObject);
 }
 
 void loadFile(String _fn){
@@ -59,25 +70,26 @@ void loadFile(String _fn){
     String[] _raw = loadStrings(_fn);
     String _buf = "";
 
-    for(int i = 0; i < _raw.length; i++){
-        if(_raw[i].contains("/chat")){
-            if(!_buf.equals("")){
+    // Construct chat message JSON
+    for (int i = 0; i < _raw.length; i++){
+        if (_raw[i].contains("/chat")){
+            if (!_buf.equals("")) {
                 messages.add(_buf);
             }
             String[] _ha = split(_raw[i], " ");
-            _buf = "{ ";
-            if(_ha.length > 1){
+            _buf = "{ \"type\": \"chat\", ";
+            if (_ha.length > 1) {
                 _buf += "\"username\": \"" + _ha[1] + "\", ";
             }
         }
         else {
-            _buf += "\"content\": \"" + _raw[i] + "\" }";
+            _buf += "\"message\": \"" + _raw[i] + "\" }";
         }
     }
-    if(!_buf.equals("")){
+    if (!_buf.equals("")) {
         messages.add(_buf);
     }
-    for(String _s : messages){
+    for (String _s : messages) {
         println(_s);
     }
 }
@@ -85,9 +97,20 @@ void loadFile(String _fn){
 
 void webSocketServerEvent(String msg){
     println(msg);
-    if(msg.equals("next")){
+
+    // split message args
+    String[] _message = split(msg, " ");
+
+    if (_message[0].equals("next")) {
         nextMessage();
     }
+
+    if (_message[0].equals("viewers")) {
+        int _numViewers = int(_message[1]);
+        println("updating viewers by " + _numViewers);
+        updateViewers(_numViewers);
+    }
+
     x=random(width);
     y=random(height);
 }
