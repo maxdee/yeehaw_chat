@@ -20,9 +20,9 @@ window.onload = function() {
     */
 
     // fetch the info at 200 ms intervals
-    setInterval(function() {
-        actualySendCMD('control');
-    }, 2000);
+    // setInterval(function() {
+    //     actualySendCMD('control');
+    // }, 2000);
 
 
     /*
@@ -223,6 +223,7 @@ window.onload = function() {
         // }
         console.log(e.keyCode);
         //send keyPress to freeliner
+        actualySendCMD("next");
     }, false);
 
     document.addEventListener("keyup", function(e) {
