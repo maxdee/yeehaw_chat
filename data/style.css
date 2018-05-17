@@ -131,3 +131,7 @@ input[type=checkbox] {
   display: inline-block;
   margin: 0px;
 }
+
+video {
+  width: 100%;
+}
