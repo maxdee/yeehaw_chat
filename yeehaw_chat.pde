@@ -19,6 +19,7 @@ int HTTPSERVER_PORT = 8000;
 ArrayList<String> messages;
 
 SoundFile tipJarSound;
+SoundFile messageSound;
 
 int increment = 0;
 int index = 0;
@@ -31,6 +32,7 @@ void setup(){
     chatSocket = new WebsocketServer(this, WEBSOCKET_PORT,"/yeehaw");
     controlSocket = new WebsocketServer(this, WEBSOCKET_PORT+1,"/control");
     tipJarSound = new SoundFile(this, "assets/sounds/spitoon.wav");
+    messageSound = new SoundFile(this, "assets/sounds/message.wav");
 
     now = millis();
     x = 0;
@@ -52,8 +54,9 @@ void keyPressed( ){
 
 void nextMessage() {
     if(index < messages.size()) {
-        chatSocket.sendMessage(messages.get(index));
         println(messages.get(index));
+        messageSound.play();
+        chatSocket.sendMessage(messages.get(index));
         index++;
     }
     index %= messages.size();
