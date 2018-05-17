@@ -204,6 +204,7 @@ window.onload = function() {
     const TIP_ADD_40_KEY = 54; // 6 key
     const TIP_ADD_60_KEY = 55; // 7 key
     const TIP_ADD_100_KEY = 56; // 8 key
+    const SILENT_TIP_KEY = 57; // 9 key
 
     // prevent keyboard default behaviors, for ctrl-_ tab
     document.addEventListener("keydown", function(e) {
@@ -256,6 +257,9 @@ window.onload = function() {
             case TIP_ADD_100_KEY:
                 actualySendCMD('tip 100');
                 break;
+            case SILENT_TIP_KEY:
+                actualySendCMD('tip silent')
+                break;
         }
 
     }, false);
@@ -278,11 +282,6 @@ window.onload = function() {
     nextButton.onclick = function() {
         actualySendCMD("next");
     };
-    
-    // var viewersButton = document.getElementById('viewersButton');
-    // viewersButton.onclick = function() {
-    //     actualySendCMD("viewers 1");
-    // };
 
     var viewersButtons = document.getElementsByClassName('viewers-button');
     // Add viewers button events
@@ -303,8 +302,13 @@ window.onload = function() {
 
         _button.addEventListener('click', function(event) {
             var _value = event.target.value;
-            console.log('tip ' + _value);
-            actualySendCMD('tip ' + _value);
+
+            console.log(event.target.name);
+            if (event.target.name === 'add-tip-silent') {
+                actualySendCMD('tip silent');
+            } else {
+                actualySendCMD('tip ' + _value);
+            }
         });
     }
 

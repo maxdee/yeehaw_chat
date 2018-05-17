@@ -69,6 +69,33 @@ void updateViewers(int _numViewers) {
     chatSocket.sendMessage(_viewersObject);
 }
 
+
+void addToTipJar(String _tipAmount) {
+    String _tipObject;
+
+    if (_tipAmount.equals("silent")) {
+        _tipAmount = "1";
+        // Construct tip message JSON
+        _tipObject = "{ "
+            + "\"type\": \"tip\", "
+            + "\"amount\": \"" + _tipAmount + "\""
+        + " }";
+        println(_tipObject);
+        chatSocket.sendMessage(_tipObject);
+    } else {
+        // Construct tip message JSON
+        _tipObject = "{ "
+            + "\"type\": \"tip\", "
+            + "\"amount\": \"" + _tipAmount + "\""
+        + " }";
+        println(_tipObject);
+        println("loud");
+        tipJarSound.play();
+        chatSocket.sendMessage(_tipObject);
+    }
+}
+
+
 void loadFile(String _fn){
     messages = new ArrayList();
     String[] _raw = loadStrings(_fn);
@@ -147,23 +174,9 @@ void oscEvent(OscMessage theOscMessage) {
         nextMessage();
     }
     else if(theOscMessage.checkAddrPattern("/chat/prev")==true){
-        //
         println("PREVIOUS MESSAGE QUEUE, NOT IMPLEMENTED");
     }
     else {
         println(theOscMessage);
     }
-}
-
-
-void addToTipJar(String _tipAmount) {
-    // Construct tip message JSON
-    String _tipObject = "{ "
-        + "\"type\": \"tip\", "
-        + "\"amount\": \"" + _tipAmount + "\""
-    + " }";
-    println(_tipObject);
-
-    tipJarSound.play();
-    chatSocket.sendMessage(_tipObject);
 }
