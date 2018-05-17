@@ -136,6 +136,23 @@ void webSocketServerEvent(String msg){
     String[] _message = split(msg, " ");
     String _messageType = _message[0];
 
+    switch(_messageType) {
+        case "next":
+            nextMessage();
+            break;
+        case "viewers":
+            int _numViewers = int(_message[1]);
+            updateViewers(_numViewers);
+            break;
+        case "tip":
+            String _tipAmount = _message[1];
+            addToTipJar(_tipAmount);
+            break;
+        default:
+            chatSocket.sendMessage(msg);
+            break;
+    }
+
     // Trigger next message
     if (_messageType.equals("next")) {
         nextMessage();

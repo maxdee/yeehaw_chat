@@ -19,10 +19,10 @@ window.onload = function() {
     * /////////////////////////////////////////////////////////////
     */
 
-    // fetch the info at 200 ms intervals
-    // setInterval(function() {
-    //     actualySendCMD('control');
-    // }, 2000);
+    // ping websocket every 10 secs to prevent timeout
+    setInterval(function() {
+        actualySendCMD('ping');
+    }, 10000);
 
 
     /*
