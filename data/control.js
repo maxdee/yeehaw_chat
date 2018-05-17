@@ -191,7 +191,7 @@ window.onload = function() {
     var shiftKeyPressed = false;
     // Keycode mapping
     const SHIFT_KEY = 16;
-    const NEXT_MESSAGE_KEY = 32; // spacebar
+    const NEXT_MESSAGE_KEY = 78; // spacebar
     const VIEWERS_1_KEY = 90; // Z key
     const VIEWERS_2_KEY = 88; // X key
     const VIEWERS_5_KEY = 67; // C key
