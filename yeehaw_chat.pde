@@ -153,22 +153,6 @@ void webSocketServerEvent(String msg){
             break;
     }
 
-    // Trigger next message
-    if (_messageType.equals("next")) {
-        nextMessage();
-    }
-
-    // Add or remove viewers
-    if (_messageType.equals("viewers")) {
-        int _numViewers = int(_message[1]);
-        updateViewers(_numViewers);
-    }
-
-    if (_messageType.equals("tip")) {
-        String _tipAmount = _message[1];
-        addToTipJar(_tipAmount);
-    }
-
     x=random(width);
     y=random(height);
 }
