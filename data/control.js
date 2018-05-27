@@ -8,7 +8,7 @@ window.onload = function() {
     // var chatDiv = document.getElementById("messages");
     // var jumpButton = document.getElementById("jump");
     var autoScroll = true;
-    var DEFAULT_WEBSOCKET_ADDR = 'ws://127.0.0.1:8026/control';
+    var DEFAULT_WEBSOCKET_ADDR = 'ws://192.168.0.101:8026/control';
 
     // Check if chat div is being manually scrolled and set autoscroll accordingly
     // TODO: add button to jump to newest messages if manually scrolling
