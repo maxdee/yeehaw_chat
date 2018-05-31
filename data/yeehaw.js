@@ -12,7 +12,8 @@ window.onload = function() {
     var tipAmount = 0;
     var jumpButton = document.getElementById('jump');
     var autoScroll = true;
-    var DEFAULT_WEBSOCKET_ADDR = 'ws://192.168.0.101:8025/yeehaw';
+    // Booth computer address on the LAN
+    var DEFAULT_WEBSOCKET_ADDR = 'ws://192.168.0.102:8025/yeehaw';
     // Check if chat div is being manually scrolled and set autoscroll accordingly
     // TODO: add button to jump to newest messages if manually scrolling
     chatDiv.onscroll = function(event) {

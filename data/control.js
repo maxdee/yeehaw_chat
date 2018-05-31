@@ -8,6 +8,7 @@ window.onload = function() {
     // var chatDiv = document.getElementById("messages");
     // var jumpButton = document.getElementById("jump");
     var autoScroll = true;
+    var LOCAL_WEBSOCKET_ADDR = 'ws://127.0.0.1:8026/control';
     var DEFAULT_WEBSOCKET_ADDR = 'ws://192.168.0.101:8026/control';
 
     // Check if chat div is being manually scrolled and set autoscroll accordingly
@@ -191,11 +192,12 @@ window.onload = function() {
     var shiftKeyPressed = false;
     // Keycode mapping
     const SHIFT_KEY = 16;
-    const NEXT_MESSAGE_KEY = 78; // spacebar
+    const NEXT_MESSAGE_KEY = 190; // > key
     const VIEWERS_1_KEY = 90; // Z key
     const VIEWERS_2_KEY = 88; // X key
     const VIEWERS_5_KEY = 67; // C key
     const VIEWERS_10_KEY = 86; // V key
+    const VIEWERS_100_KEY = 66; // B key
     const TIP_ADD_1_KEY = 49; // 1 key
     const TIP_ADD_2_KEY = 50; // 2 key
     const TIP_ADD_5_KEY = 51; // 3 key
@@ -232,6 +234,9 @@ window.onload = function() {
                 break;
             case VIEWERS_10_KEY:
                 actualySendCMD(shiftKeyPressed ? 'viewers -10' : 'viewers 10');
+                break;
+            case VIEWERS_100_KEY:
+                actualySendCMD(shiftKeyPressed ? 'viewers -100' : 'viewers 100');
                 break;
             case TIP_ADD_1_KEY:
                 actualySendCMD('tip 1');
